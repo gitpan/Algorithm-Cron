@@ -1,4 +1,7 @@
 Revision history for Algorithm-Cron
 
+0.02    BUGFIXES:
+         * Generate mday and wday names in C locale
+
 0.01    First version, released on an unsuspecting world.
 

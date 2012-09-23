@@ -62,7 +62,8 @@ DESCRIPTION
      min => "0,10,20,30,40,50"
 
     The `mon' and `wday' fields also allow symbolic month or weekday names
-    in place of numeric values.
+    in place of numeric values. These names are always in the C locale,
+    regardless of the system's locale settings.
 
      mon => "mar-sep"
 

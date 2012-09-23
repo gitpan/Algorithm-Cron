@@ -8,13 +8,13 @@ package Algorithm::Cron;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 my @FIELDS = qw( sec min hour mday mon year wday );
 my @FIELDS_CTOR = grep { $_ ne "year" } @FIELDS;
 
 use Carp;
-use POSIX qw( mktime strftime );
+use POSIX qw( mktime strftime setlocale LC_TIME );
 use Time::timegm qw( timegm );
 
 =head1 NAME
@@ -85,7 +85,8 @@ that range.
  min => "0,10,20,30,40,50"
 
 The C<mon> and C<wday> fields also allow symbolic month or weekday names in
-place of numeric values.
+place of numeric values. These names are always in the C locale, regardless of
+the system's locale settings.
 
  mon => "mar-sep"
 
@@ -135,8 +136,18 @@ my %MAX = (
    wday => 6,
 );
 
-my %MONTHS = map { lc(strftime "%b", 0,0,0,1,$_,70), $_ } 0 .. 11;
-my %WDAYS  = map { lc(strftime "%a", 0,0,0,0,0,0,$_), $_ } 0 .. 6;
+my %MONTHS;
+my %WDAYS;
+# These always want to be in LC_TIME=C
+{
+   my $old_loc = setlocale( LC_TIME );
+   setlocale( LC_TIME, "C" );
+
+   %MONTHS = map { lc(strftime "%b", 0,0,0,1,$_,70), $_ } 0 .. 11;
+   %WDAYS  = map { lc(strftime "%a", 0,0,0,0,0,0,$_), $_ } 0 .. 6;
+
+   setlocale( LC_TIME, $old_loc );
+}
 
 sub _expand_set
 {
