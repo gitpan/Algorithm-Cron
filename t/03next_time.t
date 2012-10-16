@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 
 use Time::timegm qw( timegm );
 
@@ -119,3 +119,8 @@ is_deeply( [ list_times "15 2 15 * tue", 7 ],
      "2012-01-24 02:15:00",
      "2012-01-31 02:15:00",
      "2012-02-07 02:15:00" ], '02:15 15th or Tuesday' );
+
+is_deeply( [ list_times "59 59 23 31 01,03 *", 3 ],
+   [ "2012-01-31 23:59:59",
+     "2012-03-31 23:59:59",
+     "2013-01-31 23:59:59" ], 'last second of the month');

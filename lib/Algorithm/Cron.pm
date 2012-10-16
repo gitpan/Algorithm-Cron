@@ -8,7 +8,7 @@ package Algorithm::Cron;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 my @FIELDS = qw( sec min hour mday mon year wday );
 my @FIELDS_CTOR = grep { $_ ne "year" } @FIELDS;
@@ -331,7 +331,7 @@ sub next_time_field
          return 0;
       }
       elsif( $new > $old ) {
-         $t->[$_] = 0 for 0 .. $idx - 1;
+         $t->[$_] = $MIN{$FIELDS[$_]} for TM_SEC .. $idx-1;
       }
    }
    else {
@@ -347,7 +347,7 @@ sub next_time_field
       }
       elsif( $new > $old ) {
          # Next field; reset
-         $t->[$_] = 0 for 0 .. $idx-1;
+         $t->[$_] = $MIN{$FIELDS[$_]} for TM_SEC .. $idx-1;
       }
    }
 

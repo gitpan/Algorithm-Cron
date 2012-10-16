@@ -1,5 +1,8 @@
 Revision history for Algorithm-Cron
 
+0.03    BUGFIXES:
+         * Bugfix to month rollover logic (thanks Nic Sandfield)
+
 0.02    BUGFIXES:
          * Generate mday and wday names in C locale
 
