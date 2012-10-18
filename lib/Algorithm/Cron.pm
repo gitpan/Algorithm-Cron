@@ -8,7 +8,7 @@ package Algorithm::Cron;
 use strict;
 use warnings;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 my @FIELDS = qw( sec min hour mday mon year wday );
 my @FIELDS_CTOR = grep { $_ ne "year" } @FIELDS;
@@ -163,9 +163,10 @@ sub _expand_set
       $val =~ s{/(\d+)$}{} and $step = $1;
 
       $val =~ m{^(.+)-(.+)$} and ( $val, $end ) = ( $1, $2 );
-      $val eq "*" and ( $val, $end ) = ( $MIN{$kind}, $MAX{$kind} );
-
-      if( $kind eq "mon" ) {
+      if( $val eq "*" ) {
+         ( $val, $end ) = ( $MIN{$kind}, $MAX{$kind} );
+      }
+      elsif( $kind eq "mon" ) {
          # Users specify 1-12 but we want 0-11
          defined and m/^\d+$/ and $_-- for $val, $end;
          # Convert symbolics
