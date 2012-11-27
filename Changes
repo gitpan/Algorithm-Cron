@@ -1,5 +1,8 @@
 Revision history for Algorithm-Cron
 
+0.05    BUGFIXES
+         * Bugfix to mday+month rollover logic (thanks Nic Sandfield)
+
 0.04    BUGFIXES:
          * Bugfix to mon */skip globbing (thanks Nic Sandfield)
 

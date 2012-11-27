@@ -8,7 +8,7 @@ package Algorithm::Cron;
 use strict;
 use warnings;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 my @FIELDS = qw( sec min hour mday mon year wday );
 my @FIELDS_CTOR = grep { $_ ne "year" } @FIELDS;
@@ -362,6 +362,10 @@ sub next_time_field
    if( $idx == TM_MDAY and $was_mon != $t->[TM_MON] ) {
       $t->[$_] = 0 for TM_SEC .. TM_HOUR;
       $t->[TM_MDAY] = 1;
+
+      @$t = $funcs->[NORMALISE]->( @$t );
+
+      return 0;
    }
 
    return 1;
