@@ -8,7 +8,7 @@ package Algorithm::Cron;
 use strict;
 use warnings;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 my @FIELDS = qw( sec min hour mday mon year wday );
 my @FIELDS_CTOR = grep { $_ ne "year" } @FIELDS;
@@ -178,6 +178,9 @@ sub _expand_set
          $end = 7 if defined $end and $end == 0 and $val > 0;
       }
 
+      $val =~ m/^\d+$/ or croak "$val is unrecognised for $kind";
+      $end =~ m/^\d+$/ or croak "$end is unrecognised for $kind" if defined $end;
+
       push @vals, $val;
       push @vals, $val while defined $end and ( $val += $step ) <= $end;
 
@@ -247,6 +250,9 @@ sub new
    if( exists $params{crontab} ) {
       my $crontab = delete $params{crontab};
       my @fields = split m/\s+/, $crontab;
+      @fields >= 5 or croak "Expected at least 5 crontab fields";
+      @fields <= 6 or croak "Expected no more than 6 crontab fields";
+
       @fields = ( "0", @fields ) if @fields < 6;
       @params{ @FIELDS_CTOR } = @fields;
    }

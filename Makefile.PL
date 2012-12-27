@@ -5,6 +5,7 @@ WriteMakefile
   'NAME' => 'Algorithm::Cron',
   'VERSION_FROM' => 'lib/Algorithm/Cron.pm',
   'PREREQ_PM' => {
+                   'Test::Fatal' => 0,
                    'Test::More' => 0,
                    'Time::timegm' => 0
                  },

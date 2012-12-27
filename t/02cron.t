@@ -3,7 +3,8 @@
 use strict;
 use warnings;
 
-use Test::More tests => 25;
+use Test::More tests => 27;
+use Test::Fatal qw( dies_ok );
 
 use Algorithm::Cron;
 
@@ -74,3 +75,9 @@ use Algorithm::Cron;
    is_deeply( [ $cron->mon  ], [ 1  ], '$cron->mon for named' );
    is_deeply( [ $cron->wday ], [],     '$cron->wday for named' );
 }
+
+dies_ok { Algorithm::Cron->new( crontab => '@hourly', base => 'utc' ) }
+   "crontab => '\@hourly' dies";
+
+dies_ok { Algorithm::Cron->new( crontab => 'one * * * *', base => 'utc' ) }
+   'Unrecognised number dies';

@@ -3,6 +3,7 @@ abstract: 'abstract implementation of the F<cron(8)> scheduling'
 author:
   - 'Paul Evans <leonerd@leonerd.org.uk>'
 build_requires:
+  Test::Fatal: 0
   Test::More: 0
 dynamic_config: 1
 generated_by: 'Module::Build version 0.4001, CPAN::Meta::Converter version 2.120921'
@@ -14,9 +15,9 @@ name: Algorithm-Cron
 provides:
   Algorithm::Cron:
     file: lib/Algorithm/Cron.pm
-    version: 0.05
+    version: 0.06
 requires:
   Time::timegm: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.05
+version: 0.06

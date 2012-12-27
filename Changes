@@ -1,6 +1,10 @@
 Revision history for Algorithm-Cron
 
-0.05    BUGFIXES
+0.06    BUGFIXES:
+         * More robust checking of 'crontab' argument to avoid undef values
+           causing an infinite loop. (thanks Tyler Riddle) (RT82115)
+
+0.05    BUGFIXES:
          * Bugfix to mday+month rollover logic (thanks Nic Sandfield)
 
 0.04    BUGFIXES:
