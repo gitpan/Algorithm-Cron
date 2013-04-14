@@ -8,7 +8,7 @@ package Algorithm::Cron;
 use strict;
 use warnings;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 my @FIELDS = qw( sec min hour mday mon year wday );
 my @FIELDS_CTOR = grep { $_ ne "year" } @FIELDS;
@@ -196,8 +196,8 @@ sub _expand_set
 use constant { EXTRACT => 0, BUILD => 1, NORMALISE => 2 };
 my %time_funcs = (
               # EXTRACT                BUILD     NORMALISE
-   local => [ sub { localtime $_[0] }, \&mktime, sub { localtime mktime @_[0..5] } ],
-   utc   => [ sub { gmtime $_[0] },    \&timegm, sub { gmtime timegm @_[0..5] } ],
+   local => [ sub { localtime $_[0] }, \&mktime, sub { localtime mktime @_[0..5], -1, -1, -1 } ],
+   utc   => [ sub { gmtime $_[0] },    \&timegm, sub { gmtime timegm @_[0..5], -1, -1, -1 } ],
 );
 
 # Indices in time array

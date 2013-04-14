@@ -6,7 +6,7 @@ WriteMakefile
   'VERSION_FROM' => 'lib/Algorithm/Cron.pm',
   'PREREQ_PM' => {
                    'Test::Fatal' => 0,
-                   'Test::More' => 0,
+                   'Test::More' => '0.88',
                    'Time::timegm' => 0
                  },
   'INSTALLDIRS' => 'site',

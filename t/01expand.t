@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 15;
+use Test::More;
 
 use Algorithm::Cron;
 
@@ -27,3 +27,5 @@ is_deeply( expand( "mon-fri", "wday" ), [ 1 .. 5 ], 'expand wday=mon-fri' );
 is_deeply( expand( "4", "wday" ), [ 4 ], 'expand wday=4' );
 is_deeply( expand( "5-7", "wday" ), [ 0, 5, 6 ], 'expand wday=5-7' );
 is_deeply( expand( "thu-sun", "wday" ), [ 0, 4, 5, 6 ], 'expand wday=thu-sun' );
+
+done_testing;

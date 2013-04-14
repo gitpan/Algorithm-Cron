@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 13;
+use Test::More;
 
 use Time::timegm qw( timegm );
 
@@ -133,3 +133,5 @@ is_deeply( [ list_times "00 00 00 31  * *", 7 ],
      "2012-08-31 00:00:00",
      "2012-10-31 00:00:00",
      "2012-12-31 00:00:00" ], '31st of each month');
+
+done_testing;

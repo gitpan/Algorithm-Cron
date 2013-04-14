@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 27;
+use Test::More;
 use Test::Fatal qw( dies_ok );
 
 use Algorithm::Cron;
@@ -81,3 +81,5 @@ dies_ok { Algorithm::Cron->new( crontab => '@hourly', base => 'utc' ) }
 
 dies_ok { Algorithm::Cron->new( crontab => 'one * * * *', base => 'utc' ) }
    'Unrecognised number dies';
+
+done_testing;
