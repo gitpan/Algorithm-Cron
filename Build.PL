@@ -7,6 +7,7 @@ my $build = Module::Build->new(
    module_name => 'Algorithm::Cron',
    requires => {
       'Time::timegm' => 0,
+      'perl' => '5.008', # doesn't play with  use constant  from 5.6
    },
    build_requires => {
       'Test::Fatal' => 0,

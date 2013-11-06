@@ -8,7 +8,7 @@ package Algorithm::Cron;
 use strict;
 use warnings;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 my @FIELDS = qw( sec min hour mday mon year wday );
 my @FIELDS_CTOR = grep { $_ ne "year" } @FIELDS;
@@ -143,8 +143,10 @@ my %WDAYS;
    my $old_loc = setlocale( LC_TIME );
    setlocale( LC_TIME, "C" );
 
-   %MONTHS = map { lc(strftime "%b", 0,0,0,1,$_,70), $_ } 0 .. 11;
-   %WDAYS  = map { lc(strftime "%a", 0,0,0,0,0,0,$_), $_ } 0 .. 6;
+   %MONTHS = map { lc(strftime "%b", 0,0,0, 1, $_, 70), $_ } 0 .. 11;
+
+   # 0 = Sun. 4th Jan 1970 was a Sunday
+   %WDAYS  = map { lc(strftime "%a", 0,0,0, 4+$_, 0, 70), $_ } 0 .. 6;
 
    setlocale( LC_TIME, $old_loc );
 }
