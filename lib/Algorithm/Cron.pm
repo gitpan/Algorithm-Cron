@@ -1,14 +1,14 @@
 #  You may distribute under the terms of either the GNU General Public License
 #  or the Artistic License (the same terms as Perl itself)
 #
-#  (C) Paul Evans, 2012 -- leonerd@leonerd.org.uk
+#  (C) Paul Evans, 2012-2014 -- leonerd@leonerd.org.uk
 
 package Algorithm::Cron;
 
 use strict;
 use warnings;
 
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 
 my @FIELDS = qw( sec min hour mday mon year wday );
 my @FIELDS_CTOR = grep { $_ ne "year" } @FIELDS;
@@ -251,6 +251,8 @@ sub new
 
    if( exists $params{crontab} ) {
       my $crontab = delete $params{crontab};
+      s/^\s+//, s/\s+$// for $crontab;
+
       my @fields = split m/\s+/, $crontab;
       @fields >= 5 or croak "Expected at least 5 crontab fields";
       @fields <= 6 or croak "Expected no more than 6 crontab fields";
@@ -267,7 +269,10 @@ sub new
 
    foreach ( @FIELDS_CTOR ) {
       next unless exists $params{$_};
+
       $self->{$_} = _expand_set( delete $params{$_}, $_ );
+      !defined $self->{$_} or scalar @{ $self->{$_} } or
+         croak "Require at least one value for '$_' field";
    }
 
    return $self;

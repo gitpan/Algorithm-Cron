@@ -11,4 +11,5 @@ t/00use.t
 t/01expand.t
 t/02cron.t
 t/03next_time.t
+t/90rt84352.t
 t/99pod.t

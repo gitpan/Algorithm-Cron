@@ -82,4 +82,19 @@ dies_ok { Algorithm::Cron->new( crontab => '@hourly', base => 'utc' ) }
 dies_ok { Algorithm::Cron->new( crontab => 'one * * * *', base => 'utc' ) }
    'Unrecognised number dies';
 
+# RT95454
+{
+   my $cron = Algorithm::Cron->new(
+      base => 'utc',
+      crontab => ' 20 23 1 1 *'
+   );
+
+   is_deeply( [ $cron->min ], [ 20 ], '$cron->min for leading space' );
+   is_deeply( [ $cron->sec ], [ 0 ], '$cron->sec for leading space' );
+
+   my $next = $cron->next_time( 0 );
+
+   is( $next, 84000, '->next_time for crontab with space' );
+}
+
 done_testing;

@@ -1,5 +1,14 @@
 Revision history for Algorithm-Cron
 
+0.09    2014/05/14 17:27:49
+        [CHANGES]
+         * Sanity-check time fields in the constructor and reject attempts to
+           specify a list of no values for any field
+
+        [BUGFIXES]
+         * Space-trim crontab string before parsing, so leading space doesn't
+           upset the seconds field (RT95454)
+
 0.08    2013/11/06 18:07:40
         [BUGFIXES]
          * Declare dependency on perl >= 5.008 for 'use constant'
